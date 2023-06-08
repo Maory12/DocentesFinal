@@ -13,6 +13,8 @@ import listaRouter from './domains/listas/lista.router';
 
 import tarRouter from './domains/tar/tarjeta.router';
 
+import formdosRouter from './domains/formdos/formdos.router';
+
 // Función que agrega rutas
 const addRoutes = (app) => {
   // Agregando el enrutador de home
@@ -29,6 +31,8 @@ const addRoutes = (app) => {
   app.use('/list', listaRouter);
 
   app.use('/tarjeta', tarRouter);
+
+  app.use('/fo', formdosRouter);
   
   return app;
 };
