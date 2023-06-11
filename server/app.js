@@ -1,103 +1,98 @@
+// Helps to handle http errors
 import createError from 'http-errors';
-
-// Creando variable del directorio raiz
-// eslint-disable-next-line
-global["__rootdir"] = path.resolve(process.cwd());
-
-// import the express library
+// Import the Express Library
 import express from 'express';
-
+// Enable post and delete verbs
+// eslint-disable-next-line import/no-unresolved
+import methodOverride from 'method-override';
+// Is a Core-Node library to manage system paths
 import path from 'path';
-
+// Helps to parse client cookies
 import cookieParser from 'cookie-parser';
 // Library to log http communication
 import morgan from 'morgan';
 
-// Importing subroutes
-// import indexRouter from '@server/routes/index';
-// import usersRouter from '@server/routes/users';
-// import apiRouter from '@server/routes/api';
+// Importing template-engine
+import configTemplateEngine from '@server/config/templateEngine';
+
+// Setting Webpack Modules
+// eslint-disable-next-line import/no-extraneous-dependencies
+import webpack from 'webpack';
+import WebpackDevMiddleware from 'webpack-dev-middleware';
+import WebpackHotMiddleware from 'webpack-hot-middleware';
+
+// Importing webpack configuration
+import webpackConfig from '../webpack.dev.config';
+
+// Importando configurador de sesiones
+import configSession from './config/configSessions';
+
+// Importing winston logger
+import log from './config/winston';
 
 // Importando enrutador
 import router from './router';
 
-// Setting Webpack Modules
-
-import webpack from 'webpack';
-import WebpackDevmiddlegare from 'webpack-dev-middleware';
-import WebpackHotMiddleware from 'webpack-hot-middleware';
-
-//importando el onfigurador de mootor de plantillas 
-import configTemplateEngine from './config/templateEngine';
-
-// Importing webpack Configuration
-
-import webpackConfig from '../webpack.dev.config';
-
-// Impornting winston logger
-import log from './config/winston';
+// Creando variable del directorio raiz
+// eslint-disable-next-line
+global['__rootdir'] = path.resolve(process.cwd());
 
 // We are creating the express instance
 const app = express();
 
 // Get the execution mode
-
 const nodeEnviroment = process.env.NODE_ENV || 'production';
 
-// Deciding if we add  webpack middleware or not
-
+// Deciding if we add webpack middleware or not
 if (nodeEnviroment === 'development') {
-  // start webpack dev server
-  console.log('🎧 Ejecutando el modo desarrollo');
-  // Adding the key
+  // Start Webpack dev server
+  console.log('🛠️  Ejecutando en modo desarrollo');
+  // Adding the key "mode" with its value "development"
   webpackConfig.mode = nodeEnviroment;
-
+  // Setting the port
   webpackConfig.devServer.port = process.env.PORT;
-
+  // Setting up the HMR (Hot Module Replacement)
   webpackConfig.entry = [
     'webpack-hot-middleware/client?reload=true&timeout=1000',
     webpackConfig.entry,
   ];
-
+  // Agregar el plugin a la configuración de desarrollo
+  // de webpack
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
-
+  // Creating the bundler
   const bundle = webpack(webpackConfig);
-
+  // Enabling the webpack middleware
   app.use(
-    WebpackDevmiddlegare(bundle, {
-      publicPath: webpackConfig.output.PublicPath,
+    WebpackDevMiddleware(bundle, {
+      publicPath: webpackConfig.output.publicPath,
     })
   );
-
+  //  Enabling the webpack HMR
   app.use(WebpackHotMiddleware(bundle));
 } else {
-  console.log('👘 Ejecutando modo produccion');
+  console.log('🏭 Ejecutando en modo producción 🏭');
 }
 
-
-// View Engine Setup
+// Configuring the template engine
 configTemplateEngine(app);
 
-//Registering midlewares
-//Log all received requests
-app.use(morgan('combined', { stream : log.stream }));
-// Parse request data into jason
+// Registering middlewares
+// Log all received requests
+app.use(morgan('dev', { stream: log.stream }));
+// Parse request data into json
 app.use(express.json());
 // Decode url info
 app.use(express.urlencoded({ extended: false }));
-// Parse client Cookies into json
+// Parse client cookies into json
 app.use(cookieParser());
+// Enable post and delete verbs
+app.use(methodOverride('_method'));
+// Habilitando manejo de sesiones y mensajes flash
+configSession(app);
 // Set up the static file server
 app.use(express.static(path.join(__dirname, '../public')));
-
 // Registering routes
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-// app.use('/api', apiRouter);
-
 router.addRoutes(app);
-
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   log.info(`404 Pagina no encontrada ${req.method} ${req.originalUrl}`);
@@ -105,7 +100,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

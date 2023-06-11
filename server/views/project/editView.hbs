@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="card">
+      <div class="card-image">
+        <img src="/addproject.png" alt="">
+        <span class="card-title add-project" style="font-weight: bolder;">
+          Crear proyecto
+        </span>
+      </div>
+      <form autocomplete="off" action="/project/edit/{{ project._id }}?_method=put" method="post">
+        <div class="card-content">
+          <div class='input-field'>
+            <label for='project-name' class="black-text">Nombre(S)</label>
+            <input
+              placeholder='Nombre(S)'
+              id='project-name'
+              name='name'
+              type='text'
+              class="validate"
+              value="{{ project.name }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es necesario que ingrese su o sus Nombres"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.name }}
+            <span style="color: crimson;">Error: {{ errorModel.name }}</span>
+            {{/if}}
+          </div>
+
+          <div class='input-field'>
+            <label for='project-apellido' class="black-text">Apellidos</label>
+            <input
+              placeholder='Apellidos'
+              id='project-apellido'
+              apellido='apellido'
+              type='text'
+              class="validate"
+              value="{{ project.apellidos }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es Necesario que ingrese sus Apellidos"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.apellido }}
+            <span style="color: crimson;">Error: {{ errorModel.apellido }}</span>
+            {{/if}}
+          </div>
+
+{{!-- RFC --}}
+
+         <div class='input-field'>
+            <label for='project-rfc' class="black-text">RFC</label>
+            <input
+              placeholder='RFC'
+              id='project-rfc'
+              rfc='rfc'
+              type='text'
+              class="validate"
+              value="{{ project.rfc }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es Necesario que ingrese su RFC"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.rfc }}
+            <span style="color: crimson;">Error: {{ errorModel.rfc }}</span>
+            {{/if}}
+          </div>
+
+          {{!-- CURP --}}
+
+        <div class='input-field'>
+            <label for='project-curp' class="black-text">CURP</label>
+            <input
+              placeholder='CURP'
+              id='project-curp'
+              curp='curp'
+              type='text'
+              class="validate"
+              value="{{ project.curp }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es Necesario que ingrese su CURP"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.curp }}
+            <span style="color: crimson;">Error: {{ errorModel.curp }}</span>
+            {{/if}}
+          </div>
+
+          {{!-- Entidad Federativa --}}
+
+        <div class='input-field'>
+            <label for='project-entd' class="black-text">Entidad Federativa</label>
+            <input
+              placeholder='Entidad Federativa'
+              id='project-entd'
+              entd='entd'
+              type='text'
+              class="validate"
+              value="{{ project.entd }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es Necesario que ingrese su Entidad Federativa"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.entd }}
+            <span style="color: crimson;">Error: {{ errorModel.entd }}</span>
+            {{/if}}
+          </div>
+
+        </div>
+        <div class="card-action">
+          <button type="submit" class="blue darken-3 waves-effect waves-light btn">
+            <i class="material-icons left">edit</i> Editar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

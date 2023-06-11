@@ -1,3 +1,25 @@
+<!-- Dropdow para menu "Projectos" -->
+<ul id="dropdownMenu" class="dropdown-content">
+  <li>
+    <a href="/project">
+      <i class="large material-icons" style="margin: 2px;">
+        list
+      </i>
+      Listar Proyectos
+    </a>
+  </li>
+  <li class="divider"></li>
+  <li>
+    <a href="/project/add">
+      <i class="large material-icons" style="margin: 2px;">
+        add_box
+      </i>
+      Crear Proyecto
+    </a>
+  </li>
+</ul>
+
+
 <!-- Dropdow para menu "Usuarios" -->
 <ul id="user-dropdown-menu" class="dropdown-content">
   <li>
@@ -57,8 +79,16 @@
             Convocatorias
           </a>
         </li>
-        <!-- Dropdown Trigger -->
+         <!-- Dropdown Trigger -->
         <li>
+          <a class="dropdown-trigger" href="#!" data-target="dropdownMenu">
+            Acciones
+            <i class="material-icons right">
+              arrow_drop_down
+            </i>
+          </a>
+        </li>
+      
         <!-- User Dropdown -->
         <li>
           <a class="dropdown-trigger" href="#!" data-target="user-dropdown-menu">

@@ -8,10 +8,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Configuracion para desarollo
-const devConfig = {
-  env: 'development',
-  debug: process.env.DEBUG,
-};
 
 
 // Crearemos un objeto que contendra
