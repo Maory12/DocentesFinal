@@ -3,7 +3,7 @@ Class project from  the FullStack Web Development
 Subject..
 
 ## About...
-**Author**: [Hernandez Lara Jose Ezequiel] (Hernandez Lara Jose Ezequiel)
+**Author**: [Beristain Flores Ana Maory] (Beristain Flores Ana Maory )
 ----
 
 ## Proyect Stack
