@@ -15,20 +15,21 @@ const router = new Router();
 // Enrutamos
 // GET '/user/login'
 router.get('/login', userController.login);
-
+router.post('/register', userController.addPost);
 router.post(
-    '/login',
-    ValidateFactory({
-      schema: userValidator.userSchema,
-      getObject: userValidator.getUser,
-    }),
-    userController.lo,
-  );
+  '/login',
+  ValidateFactory({
+    schema: userValidator.userSchema,
+    getObject: userValidator.getUser,
+  }),
+  userController.lo
+);
 
 // GET '/user/logout'
 router.get('/logout', userController.logout);
 
 // GET '/user/register'
 router.get('/register', userController.register);
+
 // Exporto este tramo de ruta
 export default router;

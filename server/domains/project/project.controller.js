@@ -10,15 +10,15 @@ import ProjectModel from './project.model';
 // GET "/project"
 const showDashboard = async (req, res) => {
   // Consultado todos los proyectos
-  const projects = await ProjectModel.find({}).lean().exec();
+  const user = await ProjectModel.find({}).lean().exec();
   // Enviando los proyectos al cliente en JSON
   log.info('Se entrega dashboard de proyectos');
-  res.render('project/dashboardView', { projects });
+  res.render('user/dashboardView', { user });
 };
 
 // GET "/project/add"
 const add = (req, res) => {
-  res.render('project/addView');
+  res.render('user/addView');
 };
 
 // POST "/project/add"
@@ -30,7 +30,7 @@ const addPost = async (req, res) => {
   if (validationError) {
     log.info('Se entrega al cliente error de validación de add Project');
     // Se desestructuran los datos de validación
-    const { value: project } = validationError;
+    const { value: user } = validationError;
     // Se extraen los campos que fallaron en la validación
     const errorModel = validationError.inner.reduce((prev, curr) => {
       // Creando una variable temporal para
@@ -39,22 +39,22 @@ const addPost = async (req, res) => {
       workingPrev[`${curr.path}`] = curr.message;
       return workingPrev;
     }, {});
-    return res.status(422).render('project/addView', { project, errorModel });
+    return res.status(422).render('user/register', { user, errorModel });
   }
   // En caso de que pase la validación
   // Se desestructura la información
   // de la peticion
-  const { validData: project } = req;
+  const { validData: user } = req;
   try {
     // Creando la instancia de un documento
     // con los valores de 'project'
-    const savedProject = await ProjectModel.create(project);
+    const savedUser = await ProjectModel.create(user);
     // Se contesta la información del proyecto al cliente
-    log.info(`Se carga proyecto ${savedProject}`);
-    log.info('Se redirecciona el sistema a /project');
+    log.info(`Se carga proyecto ${savedUser}`);
+    log.info('Se redirecciona el sistema a /user');
     // Agregando mensaje de flash
-    req.flash('successMessage', 'Proyecto agregado con exito');
-    return res.redirect('/project');
+    req.flash('successMessage', 'Usuario agregado con exito');
+    return res.redirect('/user');
   } catch (error) {
     log.error(
       'ln 53 project.controller: Error al guardar proyecto en la base de datos'
@@ -70,8 +70,8 @@ const edit = async (req, res) => {
   // Buscando en la base de datos
   try {
     log.info(`Se inicia la busqueda del proyecto con el id: ${id}`);
-    const project = await ProjectModel.findOne({ _id: id }).lean().exec();
-    if (project === null) {
+    const user = await ProjectModel.findOne({ _id: id }).lean().exec();
+    if (user === null) {
       log.info(`No se encontro el proyecto con el id: ${id}`);
       return res
         .status(404)
@@ -79,9 +79,9 @@ const edit = async (req, res) => {
     }
     // Se manda a renderizar la vista de edición
     log.info(`Proyecto encontrado con el id: ${id}`);
-    return res.render('project/editView', { project });
+    return res.render('user/editView', { user });
   } catch (error) {
-    log.error('Ocurre un error en: metodo "error" de project.controller');
+    log.error('Ocurre un error en: metodo "error" de user.controller');
     return res.status(500).json(error);
   }
 };
@@ -109,8 +109,8 @@ const editPut = async (req, res) => {
   }
   // Si no hay error
 
-  const project = await ProjectModel.findOne({ _id: id });
-  if (project === null) {
+  const user = await ProjectModel.findOne({ _id: id });
+  if (user === null) {
     log.info(`No se encontro documento para actualizar con id: ${id}`);
     return res
       .status(404)
@@ -118,18 +118,18 @@ const editPut = async (req, res) => {
   }
   // En caso de encontrarse el documento se actualizan los datos
   const { validData: newProject } = req;
-  project.name = newProject.name;
-  project.apellido = newProject.apellido;
-  project.rfc = newProject.rfc;
-  project.curp = newProject.curp;
-  project.entd = newProject.entd;
-  project.name = newProject.name;
+  user.name = newProject.name;
+  user.apellido = newProject.apellido;
+  user.rfc = newProject.rfc;
+  user.curp = newProject.curp;
+  user.entd = newProject.entd;
+  user.name = newProject.name;
   try {
     // Se salvan los cambios
     log.info(`Actualizando proyecto con id: ${id}`);
-    await project.save();
-    req.flash('successMessage', 'Proyecto editado con exito');
-    return res.redirect(`/project/edit/${id}`);
+    await user.save();
+    req.flash('successMessage', 'Usuario editado con exito');
+    return res.redirect(`/user/edit/${id}`);
   } catch (error) {
     log.error(`Error al actualizar proyecto con id: ${id}`);
     return res.status(500).json(error);

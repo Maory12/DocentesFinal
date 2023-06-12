@@ -4,7 +4,7 @@
       <div class="card center grey lighten-4">
         <div class="card-content white-text">
           <div>
-            <img class="row center" width="250" src="/231.png">
+            <img class="row center" width="250" src="/ini.png">
           </div>
           <h1 class="black-text darken-1-text" style="font-style: italic;">Crear Cuenta </h1>
            
@@ -18,7 +18,7 @@
               name='nombre'
               type='text'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -31,8 +31,7 @@
             {{/if}}
           </div>
 
-          {{!-- Apellidos --}}
-
+          {{!-- Apeltlidos --}}
         <div class='input-field'>
             <label for='project-name' class="black-text">Apellidos</label>
             <input
@@ -41,7 +40,7 @@
               name='apellidos'
               type='text'
               class="validate"
-              value="{{ project.apellidos }}"
+              value="{{ user.apellidos }}"
               required
             />
             <span 
@@ -64,7 +63,7 @@
               name='correo'
               type='text'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -87,7 +86,7 @@
               name='password'
               type='password'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -110,7 +109,7 @@
               name='configpass'
               type='password'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -133,7 +132,7 @@
               name='numero'
               type='number'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -156,7 +155,7 @@
               name='RFC'
               type='text'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -179,7 +178,7 @@
               name='CURP'
               type='text'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -202,7 +201,7 @@
               name='entd'
               type='text'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -225,7 +224,7 @@
               name='fecha'
               type='text'
               class="validate"
-              value="{{ project.name }}"
+              value="{{ user.name }}"
               required
             />
             <span 
@@ -238,18 +237,12 @@
             {{/if}}
           </div>
   
-      <div class="row">
-        <div class="col s12">
-          <div class="row center">
-        <a href="/" id="download-button"
-        class="btn-large grey lighten-1 black-text">
-            Continuar
-        </a>
-    </div>
+     <div class="card-action">
+          <button type="submit" class="blue darken-3 waves-effect waves-light btn">
+            <i class="material-icons left">note_add</i> Continuar
+          </button>
         </div>
-      </div>
-    </form>
-          
+      </form>          
       </div>
     </div>
   </div>

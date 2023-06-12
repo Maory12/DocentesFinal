@@ -14,9 +14,9 @@ router.get('/author', (req, res)=>{
   //Creating a View-Model
 
   const author = {
-    "name": "Jose Ezequiel",
-    "lastname": "Hernandez ",
-    "age": "22 years"
+    "name": "Ana Maory",
+    "lastname": "Beristain",
+    "age": "24 years"
   };
 // Sending yhe view-model to be renderd by a View
 
